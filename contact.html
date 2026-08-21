@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>オーダーについて相談する｜ENISHI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      color: #2f2924;
+      background: #faf8f4;
+      line-height: 1.8;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ヘッダー */
+    header {
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #faf8f4;
+      border-bottom: 1px solid #e8dfd4;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    .back-btn {
+      font-size: 14px;
+      color: #6f5a43;
+    }
+
+    /* メイン */
+    main {
+      padding: 70px 20px 100px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .eyebrow {
+      color: #9a7652;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+    .lead {
+      color: #766b61;
+      font-size: 15px;
+    }
+
+    /* フォーム */
+    .form-box {
+      background: white;
+      padding: 50px;
+      border-radius: 18px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .required {
+      font-size: 11px;
+      color: #9a7652;
+      border: 1px solid #d8c7b2;
+      padding: 2px 7px;
+      margin-left: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #ddd5ca;
+      background: #fcfbf9;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #9a7652;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .radio-option {
+      position: relative;
+    }
+
+    .radio-option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .radio-option span {
+      display: block;
+      padding: 10px 18px;
+      border: 1px solid #ddd5ca;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .radio-option input:checked + span {
+      background: #3b3027;
+      color: white;
+      border-color: #3b3027;
+    }
+
+    .privacy {
+      font-size: 12px;
+      color: #766b61;
+      margin: 10px 0 25px;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      background: #3b3027;
+      color: white;
+      padding: 18px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .notice {
+      margin-top: 35px;
+      background: #f3eee6;
+      padding: 25px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #766b61;
+    }
+
+    .notice h2 {
+      font-size: 16px;
+      color: #2f2924;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #251e19;
+      color: #cfc6bd;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 16px 20px;
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+
+      main {
+        padding: 50px 15px 70px;
+      }
+
+      .form-box {
+        padding: 30px 20px;
+      }
+
+      .radio-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .radio-option span {
+        text-align: center;
+        padding: 10px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html" class="logo">ENISHI</a>
+
+    <a href="index.html" class="back-btn">
+      ← トップページへ戻る
+    </a>
+  </header>
+
+  <main>
+
+    <div class="container">
+
+      <div class="page-title">
+        <div class="eyebrow">CONTACT</div>
+
+        <h1>オーダーについて相談する</h1>
+
+        <p class="lead">
+          「何を選べばいいかわからない」でも大丈夫です。<br>
+          あなたの想いに合わせて、一緒に考えます。
+        </p>
+      </div>
+
+      <div class="form-box">
+
+        <form>
+
+          <div class="form-group">
+            <label>
+              お名前
+              <span class="required">必須</span>
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="例：山田 太郎"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>
+              メールアドレス
+              <span class="required">必須</span>
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="例：example@email.com"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label>どなたへのプレゼントですか？</label>
+
+            <div class="radio-group">
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="自分">
+                <span>自分自身</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="恋人・配偶者">
+                <span>恋人・配偶者</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="父・母">
+                <span>父・母</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="子ども">
+                <span>子ども</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="友人">
+                <span>友人</span>
+              </label>
+
+              <label class="radio-option">
+                <input type="radio" name="recipient" value="その他">
+                <span>その他</span>
+              </label>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>どんな用途を考えていますか？</label>
+
+            <select name="occasion">
+              <option value="">選択してください</option>
+              <option>結婚・結婚式の記念</option>
+              <option>誕生日プレゼント</option>
+              <option>父の日・母の日</option>
+              <option>卒業・引退記念</option>
+              <option>親から子へ</option>
+              <option>昔使っていたグローブを残したい</option>
+              <option>その他</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>気になっている商品</label>
+
+            <select name="product">
+              <option value="">まだ決まっていない</option>
+              <option>思い出を残すグローブ</option>
+              <option>ギフトグローブ</option>
+              <option>メモリアルグローブ</option>
+              <option>相談して決めたい</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>
+              ご相談内容
+              <span class="required">必須</span>
+            </label>
+
+            <textarea
+              name="message"
+              placeholder="例：野球をしていた夫への結婚記念日のプレゼントを考えています。グローブには結婚式の日付と名前を入れたいです。"
+              required
+            ></textarea>
+          </div>
+
+          <p class="privacy">
+            ご入力いただいた情報は、お問い合わせへの対応のためにのみ使用します。
+          </p>
+
+          <button type="submit">
+            相談内容を送信する →
+          </button>
+
+        </form>
+
+        <div class="notice">
+          <h2>お気軽にご相談ください</h2>
+          グローブのことがわからなくても問題ありません。<br>
+          「野球好きな人にプレゼントしたい」という段階からでも大丈夫です。
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © ENISHI MEMORIAL GLOVE
+  </footer>
+
+</body>
+</html>
