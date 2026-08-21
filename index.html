@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ENISHI｜その想い出を、未来へつなぐ。</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      color: #2f2924;
+      background: #faf8f4;
+      line-height: 1.8;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ヘッダー */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 244, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    .header-btn {
+      background: #3b3027;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+    }
+
+    /* メイン */
+    .hero {
+      min-height: 100vh;
+      padding: 150px 8% 80px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 80% 30%, #e5d6bd 0%, transparent 30%),
+        #faf8f4;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: #9a7652;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.3;
+      font-weight: 400;
+      margin-bottom: 25px;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 35px;
+    }
+
+    .main-btn {
+      display: inline-block;
+      background: #3b3027;
+      color: white;
+      padding: 17px 35px;
+      border-radius: 40px;
+      transition: 0.3s;
+    }
+
+    .main-btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.85;
+    }
+
+    .glove-box {
+      aspect-ratio: 1 / 1;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 180px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.8), rgba(220,202,173,0.8));
+      box-shadow: 0 30px 80px rgba(76, 54, 30, 0.2);
+    }
+
+    /* 共通 */
+    section {
+      padding: 100px 8%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+    .section-lead {
+      text-align: center;
+      color: #766b61;
+      margin-bottom: 55px;
+    }
+
+    /* STORY */
+    .story {
+      background: white;
+    }
+
+    .memories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .memory-card {
+      background: #f5f0e8;
+      padding: 30px 20px;
+      border-radius: 12px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .memory-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .memory-card h3 {
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .memory-card p {
+      font-size: 13px;
+      color: #766b61;
+    }
+
+    /* PRODUCTS */
+    .products {
+      background: #faf8f4;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+    }
+
+    .product-image {
+      height: 230px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 100px;
+      background: #e8dcc8;
+    }
+
+    .product-content {
+      padding: 28px;
+    }
+
+    .product-content h3 {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .product-content p {
+      font-size: 14px;
+      color: #766b61;
+      min-height: 75px;
+    }
+
+    .price {
+      color: #9a7652;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    /* FLOW */
+    .flow {
+      background: white;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    .flow-card {
+      text-align: center;
+      padding: 25px 15px;
+      border: 1px solid #e8dfd4;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .step {
+      font-size: 12px;
+      color: #9a7652;
+      letter-spacing: 2px;
+    }
+
+    .flow-card h3 {
+      font-size: 16px;
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    .flow-card p {
+      font-size: 12px;
+      color: #766b61;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #3b3027, #715638);
+      color: white;
+      text-align: center;
+    }
+
+    .cta .section-title {
+      font-size: 42px;
+    }
+
+    .cta p {
+      margin-bottom: 30px;
+    }
+
+    .cta .main-btn {
+      background: white;
+      color: #3b3027;
+    }
+
+    footer {
+      background: #251e19;
+      color: #cfc6bd;
+      text-align: center;
+      padding: 30px;
+      font-size: 12px;
+    }
+
+    /* スマホ */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 5%;
+      }
+
+      .hero {
+        padding: 120px 7% 60px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .glove-box {
+        font-size: 130px;
+      }
+
+      section {
+        padding: 70px 6%;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .memories,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-btn {
+        font-size: 11px;
+        padding: 9px 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">ENISHI</div>
+    <a href="#contact" class="header-btn">オーダーについて相談する</a>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-inner">
+
+        <div class="hero-text">
+          <div class="eyebrow">MEMORIAL GLOVE</div>
+
+          <h1>
+            その想い出を、<br>
+            未来へつなぐ。
+          </h1>
+
+          <p>
+            グローブは、ただの道具じゃない。<br>
+            あの日のキャッチボールも、大切な人との時間も。<br>
+            世界にひとつだけのメモリアルグローブとして残します。
+          </p>
+
+          <a href="#contact" class="main-btn">
+            オーダーについて相談する →
+          </a>
+        </div>
+
+        <div class="glove-box">
+          🧤
+        </div>
+
+      </div>
+    </section>
+
+    <section class="story">
+      <div class="container">
+
+        <h2 class="section-title">こんな想い出、ありませんか？</h2>
+
+        <p class="section-lead">
+          グローブには、それぞれの物語があります。
+        </p>
+
+        <div class="memories">
+
+          <div class="memory-card">
+            <div class="memory-icon">👨‍👧</div>
+            <h3>父と初めて<br>キャッチボールした日</h3>
+            <p>あの日の時間を、いつまでも。</p>
+          </div>
+
+          <div class="memory-card">
+            <div class="memory-icon">⚾</div>
+            <h3>青春をともにした<br>大切なグローブ</h3>
+            <p>使わなくなっても、想い出は残る。</p>
+          </div>
+
+          <div class="memory-card">
+            <div class="memory-icon">💍</div>
+            <h3>結婚という<br>人生のスタートに</h3>
+            <p>二人だけの特別な記念品を。</p>
+          </div>
+
+          <div class="memory-card">
+            <div class="memory-icon">🎁</div>
+            <h3>野球好きな人へ<br>特別なプレゼント</h3>
+            <p>「何を贈ろう？」に、新しい答えを。</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="products">
+      <div class="container">
+
+        <h2 class="section-title">選べる3つのメモリアルグローブ</h2>
+
+        <p class="section-lead">
+          あなたの想いに合わせて、世界にひとつのグローブを。
+        </p>
+
+        <div class="product-grid">
+
+          <div class="product-card">
+            <div class="product-image">🧤</div>
+            <div class="product-content">
+              <h3>思い出を残すグローブ</h3>
+              <p>
+                大切にしてきたグローブをクリーニング。
+                思い出として美しく残します。
+              </p>
+              <div class="price">価格：22,000円〜</div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">✨</div>
+            <div class="product-content">
+              <h3>ギフトグローブ</h3>
+              <p>
+                名前、メッセージ、記念日を入れた、
+                世界にひとつだけのオリジナルグローブ。
+              </p>
+              <div class="price">価格：33,000円〜</div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">🏆</div>
+            <div class="product-content">
+              <h3>メモリアルグローブ</h3>
+              <p>
+                人生の節目を形に残すための特別なグローブ。
+                結婚、引退、卒業などに。
+              </p>
+              <div class="price">価格：38,500円〜</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="flow">
+      <div class="container">
+
+        <h2 class="section-title">ご注文の流れ</h2>
+
+        <p class="section-lead">
+          野球に詳しくなくても大丈夫です。
+        </p>
+
+        <div class="flow-grid">
+
+          <div class="flow-card">
+            <div class="step">STEP 01</div>
+            <h3>デザインを選ぶ</h3>
+            <p>用途やイメージを選択</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="step">STEP 02</div>
+            <h3>想いを入力する</h3>
+            <p>名前・日付・メッセージ</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="step">STEP 03</div>
+            <h3>イメージ確認</h3>
+            <p>完成前にデザインを確認</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="step">STEP 04</div>
+            <h3>製作</h3>
+            <p>職人がひとつずつ製作</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="step">STEP 05</div>
+            <h3>お届け</h3>
+            <p>大切に梱包してお届け</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+
+        <h2 class="section-title">
+          あなたの想い出を、<br>
+          世界にひとつのカタチに。
+        </h2>
+
+        <p>
+          まずは気軽にご相談ください。
+        </p>
+
+        <a href="mailto:your-email@example.com" class="main-btn">
+          オーダーについて相談する →
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © ENISHI MEMORIAL GLOVE
+  </footer>
+
+</body>
+</html>
