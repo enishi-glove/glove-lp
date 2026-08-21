@@ -265,11 +265,7 @@
 
       <div class="form-box">
 
-       <form
-        id="contact-form"
-        action="https://formspree.io/f/xeajnyja"
-        method="POST"
-        >
+       <form  id="contact-form">
  
   <!-- この下に現在のフォーム項目が続く -->
 
@@ -405,44 +401,29 @@
     © ENISHI MEMORIAL GLOVE
   </footer>
 
-  <script>
-    const form = document.getElementById("contact-form");
+<script>
+  window.formspree =
+    window.formspree ||
+    function () {
+      (formspree.q = formspree.q || []).push(arguments);
+    };
 
-    form.addEventListener("submit", async function(event) {
-      event.preventDefault();
+  formspree('initForm', {
+    formElement: '#contact-form',
+    formId: 'xeajnyja',
+  });
+</script>
 
-      const button = form.querySelector('button[type="submit"]');
-      const originalText = button.textContent;
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
-      button.disabled = true;
-      button.textContent = "送信中...";
-
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-
-        if (response.ok) {
-          window.location.href = "/glove-lp/thanks.html";
-        } else {
-          button.disabled = false;
-          button.textContent = originalText;
-          alert("送信できませんでした。もう一度お試しください。");
-        }
-
-      } catch (error) {
-        button.disabled = false;
-        button.textContent = originalText;
-        alert("通信エラーが発生しました。もう一度お試しください。");
-      }
+<script>
+  document
+    .getElementById("contact-form")
+    .addEventListener("formspree:success", function () {
+      window.location.href =
+        "https://glove-lp.github.io/glove-lp/thanks.html";
     });
-  </script>
+</script> 
 
 </body>
 </html>
