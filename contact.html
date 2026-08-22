@@ -402,28 +402,73 @@
   </footer>
 
 <script>
-  window.formspree =
-    window.formspree ||
-    function () {
-      (formspree.q = formspree.q || []).push(arguments);
+  const form = document.getElementById("contact-form");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
+
+    button.disabled = true;
+    button.textContent = "送信中...";
+
+    const formData = new FormData(form);
+
+    // GASに送るデータ
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      recipient: formData.get("recipient"),
+      occasion: formData.get("occasion"),
+      product: formData.get("product"),
+      message: formData.get("message")
     };
 
-  formspree('initForm', {
-    formElement: '#contact-form',
-    formId: 'xeajnyja',
-  });
-</script>
+    try {
 
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+      // ① Formspree → 運営側への通知
+      const formspreeResponse = await fetch(
+        "https://formspree.io/f/xeajnyja",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        }
+      );
 
-<script>
-  document
-    .getElementById("contact-form")
-    .addEventListener("formspree:success", function () {
+      if (!formspreeResponse.ok) {
+        throw new Error("Formspree送信エラー");
+      }
+
+      // ② Google Apps Script → 回答者へ自動返信
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbw7DGPpEdYRcUyalJ1ir4NXaub6hh7nLnxg7dwk3bXXlwNdjkGRlWo78mOfBEaeNX62wA/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(data)
+        }
+      );
+
+      // ③ ありがとうページへ
       window.location.href =
         "https://glove-lp.github.io/glove-lp/thanks.html";
-    });
-</script> 
+
+    } catch (error) {
+
+      console.error(error);
+
+      button.disabled = false;
+      button.textContent = originalText;
+
+      alert(
+        "送信できませんでした。時間をおいてもう一度お試しください。"
+      );
+    }
+  });
+</script>
 
 </body>
 </html>
