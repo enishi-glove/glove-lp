@@ -444,13 +444,17 @@
       }
 
       // ② Google Apps Script → 回答者へ自動返信
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbw7DGPpEdYRcUyalJ1ir4NXaub6hh7nLnxg7dwk3bXXlwNdjkGRlWo78mOfBEaeNX62wA/exec",
-        {
-          method: "POST",
-          body: JSON.stringify(data)
-        }
-      );
+      fetch(
+  "https://script.google.com/macros/s/AKfycbw7DGPpEdYRcUyalJ1ir4NXaub6hh7nLnxg7dwk3bXXlwNdjkGRlWo78mOfBEaeNX62wA/exec",
+  {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: JSON.stringify(data)
+  }
+);
 
       // ③ ありがとうページへ
       window.location.href =
