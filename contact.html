@@ -265,11 +265,7 @@
 
       <div class="form-box">
 
-       <form
-  id="contact-form"
-  action="https://formspree.io/f/xeajnyja"
-  method="POST"
->
+       <form  id="contact-form">
  
   <!-- この下に現在のフォーム項目が続く -->
 
@@ -343,16 +339,16 @@
             <label>どんな用途を考えていますか？</label>
 
             <select name="occasion">
-  <option value="">選択してください</option>
-  <option>結婚・結婚式の記念</option>
-  <option>誕生日プレゼント</option>
-  <option>父の日・母の日</option>
-  <option>卒業・引退記念</option>
-  <option>親から子へ</option>
-  <option>ホームランキャッチ用</option>
-  <option>自分へ贈る用</option>
-  <option>その他</option>
-</select>
+              <option value="">選択してください</option>
+              <option>結婚・結婚式の記念</option>
+              <option>誕生日プレゼント</option>
+              <option>父の日・母の日</option>
+              <option>卒業・引退記念</option>
+              <option>親から子へ</option>
+              <option>ホームランキャッチ用</option>
+              <option>自分へ贈る用</option>
+              <option>その他</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -360,10 +356,27 @@
 
             <select name="product">
               <option value="">まだ決まっていない</option>
-              <option>思い出を残すグローブ</option>
-              <option>ギフトグローブ</option>
-              <option>メモリアルグローブ</option>
+              <option>結婚式用グローブ</option>
+              <option>自分用グローブ</option>
+              <option>卒団・卒業記念グローブ</option>
+              <option>ホームランキャッチグローブ</option>
+              <option>インテリア用品</option>
               <option>相談して決めたい</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>希望するグローブの色</label>
+
+            <select name="color">
+              <option value="">まだ決まっていない</option>
+              <option>ホワイト</option>
+              <option>ブルー</option>
+              <option>レッド</option>
+              <option>イエロー</option>
+              <option>ブラック</option>
+              <option>パープル</option>
+              <option>ライムグリーン</option>
             </select>
           </div>
 
@@ -406,6 +419,7 @@
   <input type="hidden" name="recipient" id="gas-recipient">
   <input type="hidden" name="occasion" id="gas-occasion">
   <input type="hidden" name="product" id="gas-product">
+  <input type="hidden" name="color" id="gas-color">
   <input type="hidden" name="message" id="gas-message">
 </form>
 
@@ -428,6 +442,21 @@
 
 <script>
   const form = document.getElementById("contact-form");
+
+
+  // トップページの商品ボタンから遷移した場合、商品を自動選択
+  const params = new URLSearchParams(window.location.search);
+  const productParam = params.get("product");
+  const productMap = {
+    wedding: "結婚式用グローブ",
+    myglove: "自分用グローブ",
+    graduation: "卒団・卒業記念グローブ",
+    homerun: "ホームランキャッチグローブ"
+  };
+  if (productParam && productMap[productParam]) {
+    const productSelect = form.querySelector('select[name="product"]');
+    if (productSelect) productSelect.value = productMap[productParam];
+  }
 
   form.addEventListener("submit", async function(event) {
     event.preventDefault();
@@ -472,6 +501,9 @@
 
       document.getElementById("gas-product").value =
         formData.get("product") || "";
+
+      document.getElementById("gas-color").value =
+        formData.get("color") || "";
 
       document.getElementById("gas-message").value =
         formData.get("message") || "";
