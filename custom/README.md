@@ -1,27 +1,16 @@
-# ENISHI 3D Custom Glove Prototype
+# ENISHI 3D Customizer v2
 
-GitHub Pagesでそのまま動く静的サイトです。
+GitHub Pages用です。
 
-## できること
-- 3Dグローブ風モデルをドラッグ回転
-- ズーム
-- 360°自動回転
-- 本体カラー変更
-- レース色変更
-- ステッチ色変更
-- 刺繍文字・色・書体変更
-- 選択内容のサマリー表示
-- デザインをlocalStorageに保存
-- Web Share APIで共有
+## 必須ファイル
+このフォルダ直下に `glove.glb` を置いてください。
 
-## GitHubへの入れ方
-1. `enishi-glove/glove-lp` リポジトリを開く
-2. `custom` フォルダを作る
-3. このフォルダ内の `index.html` / `styles.css` / `app.js` を `custom` にアップロード
-4. GitHub Pagesが `main / (root)` なら数分後に公開
-5. URLは `https://enishi-glove.github.io/glove-lp/custom/`
+- index.html
+- styles.css
+- app.js
+- glove.glb ← 3Dグローブ本体
 
-## 注意
-この試作版の3DはThree.jsでプログラム生成した「グローブ風モデル」です。
-本物のグローブ形状にするには、最終的に `glove.glb` 等の3Dモデルへ差し替えるのが理想です。
-その場合は Blender / RealityCapture / Polycam 等で3Dデータ化し、Three.js の GLTFLoader で読み込みます。
+GLB内のメッシュ/マテリアル名に `lace` が入る部分はレース色、
+`stitch` が入る部分はステッチ色、それ以外は本体色として扱います。
+
+刺繍文字の「3Dモデル表面への貼り付け」は、実際のglove.glbの形状・UVを確認してから次段階で実装する想定です。
