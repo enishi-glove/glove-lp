@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENISHI Custom Glove</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../">
+      <span class="brand-main">ENISHI</span>
+      <span class="brand-sub">Custom Glove</span>
+    </a>
+    <nav class="nav">
+      <a href="#customizer">カラーシミュレーション</a>
+      <a href="#summary">カスタム内容</a>
+      <a href="#order">ご注文の流れ</a>
+    </nav>
+    <button id="shareBtn" class="ghost-btn">シェア</button>
+  </header>
+
+  <main id="customizer" class="layout">
+    <aside class="panel left-panel">
+      <section class="step open">
+        <button class="step-title"><span>1</span> モデルを選ぶ <b>⌃</b></button>
+        <div class="step-body model-grid">
+          <button class="model-card active" data-model="内野手用">内野手用</button>
+          <button class="model-card" data-model="外野手用">外野手用</button>
+          <button class="model-card" data-model="投手用">投手用</button>
+        </div>
+      </section>
+
+      <section class="step open">
+        <button class="step-title"><span>2</span> カラーを選ぶ <b>⌃</b></button>
+        <div class="step-body">
+          <label class="option-label">本体カラー <strong id="bodyColorName">キャメル</strong></label>
+          <div class="swatches" data-target="body">
+            <button class="swatch active" style="--c:#c98b43" data-color="#c98b43" data-name="キャメル"></button>
+            <button class="swatch" style="--c:#e67e22" data-color="#e67e22" data-name="オレンジ"></button>
+            <button class="swatch" style="--c:#c0392b" data-color="#c0392b" data-name="レッド"></button>
+            <button class="swatch" style="--c:#1f4f86" data-color="#1f4f86" data-name="ネイビー"></button>
+            <button class="swatch" style="--c:#181818" data-color="#181818" data-name="ブラック"></button>
+            <button class="swatch" style="--c:#f2efe9" data-color="#f2efe9" data-name="ホワイト"></button>
+          </div>
+
+          <label class="option-label">レース <strong id="laceColorName">ブラウン</strong></label>
+          <div class="swatches" data-target="lace">
+            <button class="swatch active" style="--c:#5b2f19" data-color="#5b2f19" data-name="ブラウン"></button>
+            <button class="swatch" style="--c:#111111" data-color="#111111" data-name="ブラック"></button>
+            <button class="swatch" style="--c:#9b1c31" data-color="#9b1c31" data-name="ワイン"></button>
+            <button class="swatch" style="--c:#243b6b" data-color="#243b6b" data-name="ネイビー"></button>
+            <button class="swatch" style="--c:#ece6dd" data-color="#ece6dd" data-name="ホワイト"></button>
+          </div>
+
+          <label class="option-label">ステッチ <strong id="stitchColorName">ゴールド</strong></label>
+          <div class="swatches" data-target="stitch">
+            <button class="swatch active" style="--c:#d7a61c" data-color="#d7a61c" data-name="ゴールド"></button>
+            <button class="swatch" style="--c:#ffffff" data-color="#ffffff" data-name="ホワイト"></button>
+            <button class="swatch" style="--c:#7e2d1a" data-color="#7e2d1a" data-name="ブラウン"></button>
+            <button class="swatch" style="--c:#111111" data-color="#111111" data-name="ブラック"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step open">
+        <button class="step-title"><span>3</span> 刺繍・文字入れ <b>⌃</b></button>
+        <div class="step-body field-stack">
+          <label>入力する文字
+            <input id="embroideryInput" maxlength="18" value="R. Takumi" placeholder="例）Sota & Yui" />
+          </label>
+          <label>書体
+            <select id="fontSelect">
+              <option value="cursive">筆記体</option>
+              <option value="serif">クラシック</option>
+              <option value="sans">シンプル</option>
+            </select>
+          </label>
+          <label>刺繍色
+            <input id="embroideryColor" type="color" value="#5b2f19" />
+          </label>
+        </div>
+      </section>
+
+      <button id="resetBtn" class="reset-btn">↻ デザインをリセット</button>
+    </aside>
+
+    <section class="viewer-wrap">
+      <div class="viewer-toolbar">
+        <div class="segmented"><button class="active">3Dビュー</button><button id="spinBtn">360°</button></div>
+        <div class="viewer-actions"><button id="zoomIn">＋</button><button id="zoomOut">−</button><button id="resetView">視点リセット</button></div>
+      </div>
+      <div id="viewer" aria-label="3Dグローブプレビュー"></div>
+      <div class="viewer-hint">ドラッグで回転・ホイールでズーム</div>
+
+      <div class="embroidery-preview-card">
+        <div>
+          <h3>刺繍・文字入れプレビュー</h3>
+          <p>入力内容が3Dモデルにリアルタイム反映されます。</p>
+        </div>
+        <div id="embroideryPreview" class="embroidery-preview">R. Takumi</div>
+      </div>
+    </section>
+
+    <aside id="summary" class="panel right-panel">
+      <h2>カスタム内容</h2>
+      <dl class="summary-list">
+        <div><dt>モデル</dt><dd id="sumModel">内野手用</dd></div>
+        <div><dt>本体カラー</dt><dd><i id="sumBodyDot"></i><span id="sumBody">キャメル</span></dd></div>
+        <div><dt>レース</dt><dd><i id="sumLaceDot"></i><span id="sumLace">ブラウン</span></dd></div>
+        <div><dt>ステッチ</dt><dd><i id="sumStitchDot"></i><span id="sumStitch">ゴールド</span></dd></div>
+        <div><dt>刺繍</dt><dd id="sumEmbroidery">R. Takumi</dd></div>
+      </dl>
+      <div class="price-row"><span>価格</span><strong>¥55,000 <small>税込</small></strong></div>
+      <button id="saveBtn" class="primary-btn">このデザインを保存</button>
+      <button id="orderBtn" class="outline-btn">この内容で相談する</button>
+      <p class="mini-note">※ 現在は試作版です。実際の革色・刺繍位置とは差が出る場合があります。</p>
+    </aside>
+  </main>
+
+  <section id="order" class="order-section">
+    <h2>ご注文の流れ</h2>
+    <div class="order-grid">
+      <div><b>01</b><h3>デザイン</h3><p>色・文字・モデルを選択。</p></div>
+      <div><b>02</b><h3>保存・相談</h3><p>デザイン情報を保存してご相談。</p></div>
+      <div><b>03</b><h3>最終確認</h3><p>スタッフと仕様を確認して制作へ。</p></div>
+    </div>
+  </section>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
