@@ -1,36 +1,204 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ENISHI | 3D Custom Glove</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ENISHI | 3D Custom Glove</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#f7f3ed;--paper:#fffdf9;--ink:#191612;--muted:#766d63;
+    --line:#e8dfd4;--accent:#2f2924;--soft:#f1ebe3;
+  }
+  html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+    font-family:Arial,"Noto Sans JP","Yu Gothic",sans-serif}
+  button,input{font:inherit}
+  header{
+    height:70px;background:rgba(255,253,249,.96);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;padding:0 26px;gap:24px
+  }
+  .brand{display:flex;align-items:center;gap:15px}
+  .brand b{font-family:Georgia,"Times New Roman",serif;font-size:27px;letter-spacing:5px}
+  .brand span{font-size:10px;letter-spacing:1.8px;color:var(--muted)}
+  nav{display:flex;gap:28px;font-size:12px}
+  .share{border:1px solid var(--line);background:var(--paper);padding:10px 16px;border-radius:9px}
+  main{display:grid;grid-template-columns:290px minmax(0,1fr) 280px;min-height:calc(100vh - 70px)}
+  aside{background:var(--paper);padding:24px 18px}
+  .left{border-right:1px solid var(--line)}
+  .right{border-left:1px solid var(--line)}
+  .section{padding:0 0 22px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+  .section:last-child{border-bottom:0}
+  .title{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;margin-bottom:16px}
+  .num{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;
+    display:grid;place-items:center;font-size:11px}
+  .model-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .model-buttons button{
+    min-height:54px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:13px
+  }
+  .model-buttons button.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+  .color-row{margin:14px 0}
+  .color-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}
+  .color-label span:last-child{color:var(--muted)}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap}
+  .swatch{
+    width:26px;height:26px;border-radius:50%;border:2px solid #fff;
+    outline:1px solid #cfc6bb;cursor:pointer
+  }
+  .swatch.active{outline:2px solid var(--ink)}
+  .field-label{font-size:12px;margin-bottom:7px}
+  .text-input,.select{
+    width:100%;height:42px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 11px
+  }
+  .viewer-wrap{padding:18px 20px 28px;min-width:0}
+  .viewer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .toggle span{padding:10px 16px;font-size:12px}
+  .toggle span:first-child{background:var(--ink);color:#fff}
+  .zoom{display:flex;gap:8px}
+  .zoom button{border:1px solid var(--line);background:#fff;border-radius:8px;min-width:38px;height:38px}
+  .viewer{
+    position:relative;height:min(68vh,710px);min-height:510px;background:#f1ece5;
+    border-radius:18px;overflow:hidden;border:1px solid #eee5da
+  }
+  #gloveCanvas{display:block;width:100%;height:100%;touch-action:none}
+  .status{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+    background:rgba(255,253,249,.94);padding:14px 18px;border-radius:12px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);font-size:13px;text-align:center;max-width:80%
+  }
+  .error{color:#8a342a}
+  .hint{text-align:center;font-size:11px;color:#8a8178;margin-top:9px}
+  .preview{
+    margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:16px;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:18px
+  }
+  .preview h3{margin:0 0 6px;font-size:15px}
+  .preview p{margin:0;color:var(--muted);font-size:11px}
+  .leather{
+    min-height:104px;border-radius:10px;display:grid;place-items:center;
+    background:#c98a43;color:#4c2819;font-size:27px;font-family:cursive
+  }
+  .summary-title{font-weight:700;font-size:16px;margin-bottom:18px}
+  .summary-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .summary-row span:last-child{text-align:right;font-weight:600}
+  .dot{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:6px}
+  .price{display:flex;justify-content:space-between;align-items:end;margin:22px 0}
+  .price strong{font-size:24px}.price small{font-size:10px;font-weight:400}
+  .save,.consult{width:100%;height:46px;border-radius:9px}
+  .save{background:var(--ink);color:#fff;border:0;font-weight:700}
+  .consult{margin-top:8px;background:#fff;border:1px solid var(--line)}
+  .note{font-size:10px;line-height:1.6;color:#8a8178;margin-top:12px}
+  @media(max-width:1050px){
+    main{grid-template-columns:240px minmax(0,1fr)}
+    .right{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
+  }
+  @media(max-width:760px){
+    header{padding:0 14px}.brand span,nav{display:none}
+    main{grid-template-columns:1fr}
+    .left{border-right:0;border-bottom:1px solid var(--line)}
+    .viewer-wrap{padding:12px}.viewer{height:55vh;min-height:380px}
+    .preview{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
-<header><b>ENISHI</b><span>3D CUSTOM GLOVE</span></header>
+<header>
+  <div class="brand"><b>ENISHI</b><span>CUSTOM GLOVE</span></div>
+  <nav><span>カラーシミュレーション</span><span>カスタム内容</span><span>ご注文の流れ</span></nav>
+  <button class="share" type="button">シェア</button>
+</header>
+
 <main>
-  <aside>
-    <h2>カラー</h2>
-    <label>本体 <input id="bodyColor" type="color" value="#c98a43"></label>
-    <label>レース <input id="laceColor" type="color" value="#5b2d18"></label>
-    <label>ステッチ <input id="stitchColor" type="color" value="#d9a514"></label>
-    <h2>刺繍</h2>
-    <input id="embroidery" maxlength="24" value="R. Takumi">
-    <p class="note">※ 3Dモデル内のメッシュ名に body / lace / stitch が含まれていると、各色が個別反映されます。</p>
-  </aside>
-  <section class="viewer">
-    <div id="loading">3Dグローブを読み込み中…</div>
-    <div id="error" hidden>
-      <b>glove.glb がまだありません</b><br>
-      custom フォルダに <code>glove.glb</code> を追加してください。
+  <aside class="left">
+    <div class="section">
+      <div class="title"><span class="num">1</span>モデルを選ぶ</div>
+      <div class="model-buttons">
+        <button class="active" type="button">内野手用</button>
+        <button type="button">外野手用</button>
+        <button type="button">投手用</button>
+      </div>
     </div>
-    <canvas id="gloveCanvas"></canvas>
-    <div class="hint">ドラッグで回転 ／ ホイールでズーム</div>
+
+    <div class="section">
+      <div class="title"><span class="num">2</span>カラーを選ぶ</div>
+
+      <div class="color-row">
+        <div class="color-label"><span>本体カラー</span><span id="bodyName">キャメル</span></div>
+        <div class="swatches" data-target="body">
+          <button class="swatch active" data-color="#c98a43" data-name="キャメル" style="background:#c98a43"></button>
+          <button class="swatch" data-color="#dc6d1c" data-name="オレンジ" style="background:#dc6d1c"></button>
+          <button class="swatch" data-color="#bd3b2f" data-name="レッド" style="background:#bd3b2f"></button>
+          <button class="swatch" data-color="#234f7f" data-name="ネイビー" style="background:#234f7f"></button>
+          <button class="swatch" data-color="#171717" data-name="ブラック" style="background:#171717"></button>
+          <button class="swatch" data-color="#f2efe9" data-name="ホワイト" style="background:#f2efe9"></button>
+        </div>
+      </div>
+
+      <div class="color-row">
+        <div class="color-label"><span>レース</span><span id="laceName">ブラウン</span></div>
+        <div class="swatches" data-target="lace">
+          <button class="swatch active" data-color="#6f321b" data-name="ブラウン" style="background:#6f321b"></button>
+          <button class="swatch" data-color="#141414" data-name="ブラック" style="background:#141414"></button>
+          <button class="swatch" data-color="#ad243c" data-name="レッド" style="background:#ad243c"></button>
+          <button class="swatch" data-color="#294d7e" data-name="ネイビー" style="background:#294d7e"></button>
+          <button class="swatch" data-color="#efede6" data-name="ホワイト" style="background:#efede6"></button>
+        </div>
+      </div>
+
+      <div class="color-row">
+        <div class="color-label"><span>ステッチ</span><span id="stitchName">ゴールド</span></div>
+        <div class="swatches" data-target="stitch">
+          <button class="swatch active" data-color="#d8a51a" data-name="ゴールド" style="background:#d8a51a"></button>
+          <button class="swatch" data-color="#f2efe9" data-name="ホワイト" style="background:#f2efe9"></button>
+          <button class="swatch" data-color="#8d321c" data-name="ブラウン" style="background:#8d321c"></button>
+          <button class="swatch" data-color="#171717" data-name="ブラック" style="background:#171717"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="title"><span class="num">3</span>刺繍・文字入れ</div>
+      <div class="field-label">入力する文字</div>
+      <input id="embroidery" class="text-input" maxlength="24" value="R. Takumi">
+      <div class="field-label" style="margin-top:12px">書体</div>
+      <select class="select"><option>筆記体</option><option>ゴシック体</option><option>明朝体</option></select>
+    </div>
+  </aside>
+
+  <section class="viewer-wrap">
+    <div class="viewer-top">
+      <div class="toggle"><span>3Dビュー</span><span>360°</span></div>
+      <div class="zoom">
+        <button id="zoomIn" type="button">＋</button>
+        <button id="zoomOut" type="button">−</button>
+        <button id="resetView" type="button">視点リセット</button>
+      </div>
+    </div>
+
+    <div class="viewer" id="viewer">
+      <div id="loading" class="status">3Dグローブを読み込み中…</div>
+      <div id="error" class="status error" hidden></div>
+      <canvas id="gloveCanvas"></canvas>
+    </div>
+    <div class="hint">ドラッグで回転・ホイールでズーム</div>
+
+    <div class="preview">
+      <div><h3>刺繍・文字入れプレビュー</h3><p>入力内容を確認できます。</p></div>
+      <div id="leatherPreview" class="leather"><span id="embroideryPreview">R. Takumi</span></div>
+    </div>
   </section>
-  <aside class="summary">
-    <h2>カスタム内容</h2>
-    <div>刺繍 <strong id="embroideryOut">R. Takumi</strong></div>
-    <div class="price">¥55,000 <small>税込</small></div>
+
+  <aside class="right">
+    <div class="summary-title">カスタム内容</div>
+    <div class="summary-row"><span>モデル</span><span>内野手用</span></div>
+    <div class="summary-row"><span>本体カラー</span><span><i id="bodyDot" class="dot" style="background:#c98a43"></i><b id="bodyOut">キャメル</b></span></div>
+    <div class="summary-row"><span>レース</span><span><i id="laceDot" class="dot" style="background:#6f321b"></i><b id="laceOut">ブラウン</b></span></div>
+    <div class="summary-row"><span>ステッチ</span><span><i id="stitchDot" class="dot" style="background:#d8a51a"></i><b id="stitchOut">ゴールド</b></span></div>
+    <div class="summary-row"><span>刺繍</span><span id="embroideryOut">R. Takumi</span></div>
+    <div class="price"><span>価格</span><strong>¥55,000 <small>税込</small></strong></div>
+    <button class="save" type="button">このデザインを保存</button>
+    <button class="consult" type="button">この内容で相談する</button>
+    <div class="note">※ 現在の試作3Dモデルは1つのメッシュで構成されているため、本体カラーのみ3Dへ反映します。レース・ステッチの個別色変更は、ENISHI専用3Dモデル制作時に対応できます。</div>
   </aside>
 </main>
 
@@ -42,6 +210,200 @@
   }
 }
 </script>
-<script type="module" src="./app.js"></script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const canvas = document.getElementById('gloveCanvas');
+const viewer = document.getElementById('viewer');
+const loading = document.getElementById('loading');
+const errorBox = document.getElementById('error');
+
+let renderer;
+try{
+  renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+}catch(err){
+  loading.hidden = true;
+  errorBox.hidden = false;
+  errorBox.textContent = '3D表示を開始できませんでした。ブラウザのWebGL設定を確認してください。';
+  throw err;
+}
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf1ece5);
+
+const camera = new THREE.PerspectiveCamera(34, 1, 0.01, 100);
+camera.position.set(0, 0.25, 3.6);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.enablePan = false;
+controls.minDistance = 1.1;
+controls.maxDistance = 7;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x6b5848, 2.5));
+const key = new THREE.DirectionalLight(0xffffff, 3.6);
+key.position.set(4,5,6);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xffe8cc, 1.5);
+fill.position.set(-4,2,3);
+scene.add(fill);
+const rim = new THREE.DirectionalLight(0xdde8ff, 1.0);
+rim.position.set(2,1,-5);
+scene.add(rim);
+
+let glove = null;
+let gloveMaterial = null;
+let homeCamera = new THREE.Vector3(0,0.25,3.6);
+const bodyState = {color:'#c98a43', name:'キャメル'};
+const otherState = {
+  lace:{color:'#6f321b', name:'ブラウン'},
+  stitch:{color:'#d8a51a', name:'ゴールド'}
+};
+
+function fitModel(object){
+  object.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(object);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  object.position.sub(center);
+
+  object.updateMatrixWorld(true);
+  const box2 = new THREE.Box3().setFromObject(object);
+  const size2 = box2.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size2.x,size2.y,size2.z) || 1;
+  object.scale.multiplyScalar(2.15/maxDim);
+
+  object.updateMatrixWorld(true);
+  const finalBox = new THREE.Box3().setFromObject(object);
+  const finalSize = finalBox.getSize(new THREE.Vector3());
+  const radius = Math.max(finalSize.x,finalSize.y,finalSize.z) * 0.72;
+  const dist = Math.max(2.8, radius / Math.tan(THREE.MathUtils.degToRad(camera.fov*0.5)) * 1.15);
+  camera.position.set(0, 0.12, dist);
+  homeCamera.copy(camera.position);
+  controls.target.set(0,0,0);
+  controls.update();
+}
+
+function applyBodyColor(){
+  if(!gloveMaterial) return;
+  gloveMaterial.color.set(bodyState.color);
+  gloveMaterial.needsUpdate = true;
+}
+
+const loader = new GLTFLoader();
+loader.load(
+  './glove.glb?v=3',
+  (gltf)=>{
+    glove = gltf.scene;
+    glove.traverse(obj=>{
+      if(obj.isMesh){
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        if(obj.material){
+          obj.material = obj.material.clone();
+          if(!gloveMaterial) gloveMaterial = obj.material;
+          obj.material.roughness = Math.max(0.55, obj.material.roughness ?? 0.7);
+          obj.material.metalness = 0;
+        }
+      }
+    });
+    scene.add(glove);
+    fitModel(glove);
+    applyBodyColor();
+    loading.hidden = true;
+  },
+  (xhr)=>{
+    if(xhr.total){
+      const pct = Math.round(xhr.loaded/xhr.total*100);
+      loading.textContent = `3Dグローブを読み込み中… ${pct}%`;
+    }
+  },
+  (err)=>{
+    console.error(err);
+    loading.hidden = true;
+    errorBox.hidden = false;
+    errorBox.innerHTML = '3Dグローブの読み込みに失敗しました。<br>glove.glb が custom フォルダにあるか確認してください。';
+  }
+);
+
+function resize(){
+  const w = Math.max(1, viewer.clientWidth);
+  const h = Math.max(1, viewer.clientHeight);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const needResize = canvas.width !== Math.floor(w*dpr) || canvas.height !== Math.floor(h*dpr);
+  if(needResize){
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(w,h,false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+}
+window.addEventListener('resize', resize);
+
+renderer.setAnimationLoop(()=>{
+  resize();
+  controls.update();
+  renderer.render(scene,camera);
+});
+
+document.getElementById('zoomIn').addEventListener('click',()=>{
+  camera.position.multiplyScalar(0.86); controls.update();
+});
+document.getElementById('zoomOut').addEventListener('click',()=>{
+  camera.position.multiplyScalar(1.16); controls.update();
+});
+document.getElementById('resetView').addEventListener('click',()=>{
+  camera.position.copy(homeCamera);
+  controls.target.set(0,0,0);
+  controls.update();
+});
+
+document.querySelectorAll('.model-buttons button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.model-buttons button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.swatches').forEach(group=>{
+  group.querySelectorAll('.swatch').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      group.querySelectorAll('.swatch').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = group.dataset.target;
+      const color = btn.dataset.color;
+      const name = btn.dataset.name;
+      document.getElementById(target+'Name').textContent = name;
+      document.getElementById(target+'Out').textContent = name;
+      document.getElementById(target+'Dot').style.background = color;
+
+      if(target==='body'){
+        bodyState.color=color; bodyState.name=name;
+        document.getElementById('leatherPreview').style.background=color;
+        applyBodyColor();
+      }else{
+        otherState[target]={color,name};
+      }
+    });
+  });
+});
+
+const embroidery = document.getElementById('embroidery');
+function updateText(){
+  const value = embroidery.value.trim() || '—';
+  document.getElementById('embroideryOut').textContent = value;
+  document.getElementById('embroideryPreview').textContent = value;
+}
+embroidery.addEventListener('input', updateText);
+updateText();
+</script>
 </body>
 </html>
