@@ -329,7 +329,7 @@
 
       window.location.href = "./thanks.html";
     } catch (error) {
-      alert("注文受付の送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。");
+      alert("注文受付の送信に失敗しました。\n\nエラー内容：\n" + (error && error.message ? error.message : String(error)));
       console.error(error);
 
       if (btn) {
