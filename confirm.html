@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご注文内容の確認｜ENISHI</title>
+  <meta name="description" content="ENISHI オーダーグローブのご注文内容確認ページ">
+  <style>
+    :root{
+      --bg:#faf8f4;
+      --card:#fffdfa;
+      --text:#2f2924;
+      --muted:#81786f;
+      --line:#e8dfd4;
+      --accent:#2f2924;
+      --soft:#f3eee7;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1050px;margin:0 auto;padding:28px 20px 64px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+      padding:8px 0 26px;border-bottom:1px solid var(--line)
+    }
+    .brand{font-size:28px;letter-spacing:.18em;font-weight:700;text-decoration:none}
+    .back{
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      font-size:14px;color:var(--muted);text-decoration:none
+    }
+    .hero{padding:38px 0 28px;text-align:center}
+    .eyebrow{
+      margin:0 0 8px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      font-size:12px;letter-spacing:.16em;color:var(--muted)
+    }
+    h1{font-size:clamp(28px,4vw,42px);margin:0 0 10px;line-height:1.35}
+    .lead{margin:0;color:var(--muted);font-size:15px}
+    .card{
+      background:var(--card);border:1px solid var(--line);
+      border-radius:18px;padding:26px;margin-bottom:20px
+    }
+    .card h2{font-size:21px;margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .preview{
+      min-height:220px;border:1px solid var(--line);border-radius:14px;
+      background:linear-gradient(145deg,#f6f1ea,#fffdfa);
+      display:flex;align-items:center;justify-content:center;text-align:center;padding:18px
+    }
+    .glove-mark{
+      width:150px;height:120px;border:5px solid #6d1f1c;background:#b7473e;
+      border-radius:46% 54% 47% 53% / 44% 46% 54% 56%;
+      display:flex;align-items:center;justify-content:center;color:#fff;
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      font-weight:700;letter-spacing:.08em
+    }
+    .preview small{
+      display:block;margin-top:12px;color:var(--muted);
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+    }
+    dl{margin:0}
+    .row{
+      display:flex;justify-content:space-between;gap:20px;
+      padding:13px 0;border-bottom:1px solid var(--line);font-size:14px
+    }
+    .row:first-child{padding-top:0}
+    .row dt{color:var(--muted)}
+    .row dd{margin:0;font-weight:600;text-align:right;overflow-wrap:anywhere}
+    .price-row{
+      display:flex;justify-content:space-between;align-items:flex-end;
+      gap:16px;padding-top:20px
+    }
+    .price-label{color:var(--muted);font-size:14px}
+    .price{
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      font-size:29px;font-weight:700
+    }
+    .delivery{
+      margin-top:18px;padding:15px 16px;border-radius:12px;
+      background:var(--soft);font-size:14px
+    }
+    .delivery strong{display:block;margin-bottom:4px}
+    .actions{
+      display:grid;grid-template-columns:1fr 1.5fr;gap:12px;
+      max-width:720px;margin:28px auto 0
+    }
+    button{
+      min-height:52px;border-radius:12px;padding:13px 18px;font-size:15px;
+      font-weight:700;cursor:pointer;
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+    }
+    .secondary{border:1px solid var(--line);background:transparent;color:var(--text)}
+    .primary{border:1px solid var(--accent);background:var(--accent);color:#fff}
+    .footnote{
+      max-width:720px;margin:12px auto 0;text-align:center;
+      color:var(--muted);font-size:12px;
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+    }
+    .bank-card{
+      border:1px solid var(--line);background:var(--soft);border-radius:14px;
+      padding:20px;margin-top:8px
+    }
+    .bank-title{font-size:18px;font-weight:700;margin:0 0 12px}
+    .bank-row{
+      display:grid;grid-template-columns:130px 1fr;gap:14px;
+      padding:10px 0;border-bottom:1px solid var(--line);font-size:14px
+    }
+    .bank-row:last-child{border-bottom:0}
+    .bank-label{color:var(--muted)}
+    .important{
+      margin-top:18px;padding:16px;border:1px solid #c9b7a5;border-radius:12px;
+      background:#fff;font-size:14px
+    }
+    .important strong{display:block;margin-bottom:5px}
+    @media(max-width:760px){
+      .wrap{padding:20px 15px 48px}
+      .brand{font-size:24px}
+      .hero{padding:28px 0 20px}
+      .grid{grid-template-columns:1fr}
+      .card{padding:18px}
+      .actions{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./index.html">ENISHI</a>
+      <a class="back" href="./order.html">← 入力画面に戻る</a>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">ORDER CONFIRMATION</p>
+      <h1>お振込みのご案内</h1>
+      <p class="lead">ご注文内容をご確認のうえ、下記口座へ商品代金をお振込みください。</p>
+    </section>
+
+    <section class="card">
+      <h2>グローブの仕様</h2>
+      <div class="grid">
+        <div class="preview">
+          <div>
+            <div class="glove-mark">ENISHI<br>GLOVE</div>
+            <small>シミュレーションしたグローブのイメージ</small>
+          </div>
+        </div>
+
+        <div>
+          <dl>
+            <div class="row"><dt>モデル</dt><dd id="show-model">—</dd></div>
+            <div class="row"><dt>本体カラー</dt><dd id="show-body">—</dd></div>
+            <div class="row"><dt>レース</dt><dd id="show-lace">—</dd></div>
+            <div class="row"><dt>ステッチ</dt><dd id="show-stitch">—</dd></div>
+            <div class="row"><dt>刺繍</dt><dd id="show-embroidery">—</dd></div>
+          </dl>
+
+          <div class="price-row">
+            <span class="price-label">商品価格</span>
+            <div><span class="price" id="show-price">¥55,000</span> <small>税込</small></div>
+          </div>
+
+          <div class="delivery">
+            <strong>納期の目安：約2か月</strong>
+            ご注文内容の確定後、完成・発送まで約2か月程度を予定しています。仕様や時期により前後する場合があります。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>お振込み先</h2>
+      <p>下記の三井住友銀行口座へ、表示されている商品代金をお振込みください。</p>
+
+      <div class="bank-card">
+        <p class="bank-title">三井住友銀行</p>
+        <div class="bank-row"><div class="bank-label">支店名</div><div>【支店名を入力】</div></div>
+        <div class="bank-row"><div class="bank-label">口座種別</div><div>普通</div></div>
+        <div class="bank-row"><div class="bank-label">口座番号</div><div>【口座番号を入力】</div></div>
+        <div class="bank-row"><div class="bank-label">口座名義</div><div>【口座名義を入力】</div></div>
+        <div class="bank-row"><div class="bank-label">お振込み金額</div><div><strong id="bank-price">¥55,000（税込）</strong></div></div>
+      </div>
+
+      <div class="important">
+        <strong>ご入金確認後にご注文確定となります。</strong>
+        お振込みいただいただけでは製作は開始されません。ENISHIにてご入金を確認後、ご注文確定のご案内をお送りします。ご入金が確認できない場合、ご注文は確定されません。
+      </div>
+
+      <p class="footnote" style="max-width:none;text-align:left;margin-top:12px">
+        ※ 振込手数料はお客様のご負担となります。お振込みの際は、ご注文者様と同じお名前でお振込みください。
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>お客様情報</h2>
+      <dl>
+        <div class="row"><dt>お名前</dt><dd id="show-name">—</dd></div>
+        <div class="row"><dt>フリガナ</dt><dd id="show-kana">—</dd></div>
+        <div class="row"><dt>メールアドレス</dt><dd id="show-email">—</dd></div>
+        <div class="row"><dt>電話番号</dt><dd id="show-tel">—</dd></div>
+        <div class="row"><dt>郵便番号</dt><dd id="show-postal">—</dd></div>
+        <div class="row"><dt>住所</dt><dd id="show-address">—</dd></div>
+        <div class="row"><dt>備考</dt><dd id="show-note">—</dd></div>
+      </dl>
+    </section>
+
+    <form id="confirm-form" action="./thanks.html" method="get">
+      <div id="hidden-fields"></div>
+
+      <div class="actions">
+        <button type="button" class="secondary" id="edit-button">修正する</button>
+        <button type="submit" class="primary">振込み内容を確認して受付を完了する</button>
+      </div>
+      <p class="footnote">この操作では注文はまだ確定しません。ENISHIでご入金を確認後、正式にご注文確定となります。</p>
+    </form>
+  </div>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+
+      const fields = [
+        "model","body","lace","stitch","embroidery","price",
+        "name","kana","email","tel","postal","address","note"
+      ];
+
+      const fallback = {
+        model:"内野手用",
+        body:"レッド",
+        lace:"ネイビー",
+        stitch:"ホワイト",
+        embroidery:"R. Takumi",
+        price:"55000"
+      };
+
+      const value = key => params.get(key) || fallback[key] || "";
+
+      const setText = (id, text) => {
+        document.getElementById(id).textContent = text || "なし";
+      };
+
+      setText("show-model", value("model"));
+      setText("show-body", value("body"));
+      setText("show-lace", value("lace"));
+      setText("show-stitch", value("stitch"));
+      setText("show-embroidery", value("embroidery"));
+      setText("show-name", value("name"));
+      setText("show-kana", value("kana"));
+      setText("show-email", value("email"));
+      setText("show-tel", value("tel"));
+      setText("show-postal", value("postal"));
+      setText("show-address", value("address"));
+      setText("show-note", value("note"));
+
+      const priceNumber = Number(String(value("price")).replace(/[^\d]/g, "")) || 55000;
+      const formattedPrice = "¥" + priceNumber.toLocaleString("ja-JP");
+      document.getElementById("show-price").textContent = formattedPrice;
+      document.getElementById("bank-price").textContent = formattedPrice + "（税込）";
+
+      const hiddenFields = document.getElementById("hidden-fields");
+      fields.forEach(key => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value(key);
+        hiddenFields.appendChild(input);
+      });
+
+      document.getElementById("edit-button").addEventListener("click", () => {
+        const query = new URLSearchParams();
+        fields.forEach(key => query.set(key, value(key)));
+        location.href = "./order.html?" + query.toString();
+      });
+    })();
+  </script>
+</body>
+</html>
