@@ -187,8 +187,7 @@
 
       <div class="important">
         <strong>ご入金確認後にご注文確定となります。</strong>
-        お振込み後、ENISHIにてご入金を確認した時点でご注文確定となり、製作を開始いたします。
-        あらかじめご了承いただけますと幸いです。
+        お振込み後、ENISHIにてご入金を確認した時点でご注文確定となり、製作を開始いたします。ご入金が確認できない場合、ご注文は確定されません。
       </div>
 
       <p class="footnote" style="max-width:none;text-align:left;margin-top:12px">
@@ -278,5 +277,69 @@
       });
     })();
   </script>
+
+<script>
+(function() {
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbya0g1vW_kDzo-K1LCyte45ljvY-h02TY8Y5kuiLhwoTQO1D69h5ut2RcWxLpNxGUNO/exec";
+  const form = document.getElementById("confirmForm");
+  if (!form) return;
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn ? btn.textContent : "";
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "送信中...";
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const payload = {
+      name: params.get("name") || "",
+      kana: params.get("kana") || "",
+      email: params.get("email") || "",
+      tel: params.get("tel") || "",
+      postal: params.get("postal") || "",
+      address: params.get("address") || "",
+      note: params.get("note") || "",
+      model: params.get("model") || "内野手用",
+      body: params.get("body") || "レッド",
+      lace: params.get("lace") || "ネイビー",
+      stitch: params.get("stitch") || "ホワイト",
+      embroidery: params.get("embroidery") || "R. Takumi",
+      price: params.get("price") || "55000"
+    };
+
+    try {
+      const response = await fetch(GAS_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.error || "送信に失敗しました。");
+      }
+
+      window.location.href = "./thanks.html";
+    } catch (error) {
+      alert("注文受付の送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。");
+      console.error(error);
+
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
