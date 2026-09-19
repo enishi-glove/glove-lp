@@ -82,7 +82,37 @@
 
   filter:drop-shadow(0 22px 25px rgba(70,45,25,.15));
 }
+/* ===== 卒団・卒業記念グローブ ===== */
 
+.graduation-visual{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:365px;
+  padding:35px;
+
+  background:linear-gradient(
+    135deg,
+    #f5eee3 0%,
+    #e5d4b9 100%
+  );
+
+  overflow:hidden;
+}
+
+.graduation-glove-img{
+  display:block;
+  width:88%;
+  max-width:520px;
+  height:auto;
+  object-fit:contain;
+
+  filter:drop-shadow(
+    0 20px 18px rgba(43,32,23,.16)
+  );
+}
 .popular-badge{
   position:absolute;
   top:24px;
@@ -344,11 +374,15 @@
           </article>
 
           <article class="product-card">
-            <div class="popular">POPULAR No.1｜BLACK</div>
-            <div class="product-image">🖤</div>
-            <div class="product-content">
-              <div class="product-label">GRADUATION GLOVE</div>
-              <h3>卒団・卒業記念グローブ</h3>
+           <div class="graduation-visual">
+  <span class="popular-badge">POPULAR No.1 | NAVY</span>
+
+  <img
+    src="./crown-graduation-glove.png"
+    alt="CROWN 卒団・卒業記念グローブ"
+    class="graduation-glove-img"
+  >
+</div>
               <p class="product-copy">仲間と過ごした時間を、形に残す。名前・背番号・チーム名を入れた、節目の記念品。</p>
               <div class="price">44,000円 <span class="tax">（税抜40,000円）</span></div>
               <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
