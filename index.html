@@ -31,7 +31,8 @@
       background:rgba(250,248,244,.92);backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(0,0,0,.05)
     }
-    .logo{font-size:28px;font-style:italic;letter-spacing:2px}
+    .logo{display:flex;align-items:center}
+    .logo img{display:block;height:54px;width:auto;max-width:220px;object-fit:contain}
     nav{display:flex;gap:22px;align-items:center;font-size:13px}
     .header-btn{background:#3b3027;color:#fff;padding:10px 18px;border-radius:30px}
     .purchase-btn{
@@ -59,6 +60,7 @@
       filter:blur(18px)
     }
     .opening-copy{position:relative;padding:30px;animation:copyIn 1.2s ease both}
+    .opening-logo{display:block;width:min(620px,82vw);max-height:62vh;object-fit:contain;margin:auto;filter:drop-shadow(0 14px 35px rgba(0,0,0,.18))}
     .opening-copy small{display:block;letter-spacing:5px;margin-bottom:20px;opacity:.78}
     .opening-copy h1{font-size:clamp(30px,5vw,62px);font-weight:400;line-height:1.55}
     @keyframes copyIn{from{opacity:0;transform:translateY(12px);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
@@ -134,6 +136,7 @@
 
     @media(max-width:850px){
       nav a:not(.header-btn){display:none}
+      .logo img{height:44px;max-width:165px}
       .hero{padding:120px 7% 60px}
       .hero-inner{grid-template-columns:1fr;gap:35px}
       .hero-text{text-align:center}.glove-box{font-size:125px}
@@ -152,7 +155,7 @@
   </div>
 
   <header>
-    <a href="#" class="logo">CROWN</a>
+    <a href="#" class="logo" aria-label="CROWN トップへ"><img src="crown-logo.png" alt="CROWN BASEBALL GLOVE"></a>
     <nav>
       <a href="#products">商品</a>
       <a href="#myglove">自分用</a>
