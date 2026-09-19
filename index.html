@@ -31,8 +31,31 @@
       background:rgba(250,248,244,.92);backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(0,0,0,.05)
     }
-    .logo{display:flex;align-items:center}
-    .logo img{display:block;height:54px;width:auto;max-width:220px;object-fit:contain}
+  .logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  flex-shrink:0;
+}
+
+/* ライオン */
+.logo-lion{
+  display:block;
+  width:75px;
+  height:68px;
+  object-fit:contain;
+}
+
+/* CROWN */
+.logo-name{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:36px;
+  font-weight:400;
+  letter-spacing:5px;
+  line-height:1;
+  color:#8a5a20;
+}
     nav{display:flex;gap:22px;align-items:center;font-size:13px}
     .header-btn{background:#3b3027;color:#fff;padding:10px 18px;border-radius:30px}
     .purchase-btn{
@@ -136,7 +159,15 @@
 
     @media(max-width:850px){
       nav a:not(.header-btn){display:none}
-      .logo img{height:44px;max-width:165px}
+     .logo-lion{
+  width:52px;
+  height:48px;
+}
+
+.logo-name{
+  font-size:24px;
+  letter-spacing:3px;
+}
       .hero{padding:120px 7% 60px}
       .hero-inner{grid-template-columns:1fr;gap:35px}
       .hero-text{text-align:center}.glove-box{font-size:125px}
@@ -156,7 +187,7 @@
 
  <header>
   <a href="./index.html" class="logo" aria-label="CROWN トップへ">
-    <img src="./crown-logo.png" alt="CROWN" class="logo-lion">
+   <img src="./crown-lion.png" alt="" class="logo-lion">
     <span class="logo-name">CROWN</span>
   </a>
 
