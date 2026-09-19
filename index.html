@@ -143,15 +143,50 @@
 }
     .hero-text p{font-size:17px;margin-bottom:32px}
     .glove-box{
-  aspect-ratio:1/1;
-  border-radius:25px;
+  position:relative;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
-  font-size:180px;
-  background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(220,202,173,.85));
-  box-shadow:0 30px 80px rgba(76,54,30,.2);
-  overflow:hidden;
+
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+  overflow:visible;
+
+  min-height:520px;
+}
+
+.hero-glove{
+  position:relative;
+  z-index:2;
+
+  display:block;
+  width:115%;
+  max-width:720px;
+  height:auto;
+
+  object-fit:contain;
+
+  filter:drop-shadow(
+    0 24px 18px rgba(73,48,27,.18)
+  );
+}
+    .glove-box::after{
+  content:"";
+  position:absolute;
+
+  left:15%;
+  right:8%;
+  bottom:25px;
+
+  height:45px;
+
+  background:rgba(74,48,26,.12);
+  filter:blur(24px);
+
+  border-radius:50%;
+
+  z-index:1;
 }
 
 .glove-box img{
@@ -271,7 +306,11 @@
           <a href="#products" class="main-btn" onclick="track('hero_products')">商品を見る →</a>
         </div>
         <div class="glove-box">
-  <img src="./crown-glove-main.png" alt="CROWN オリジナルグローブ">
+  <img
+    src="./crown-glove-transparent.png"
+    alt="CROWN オリジナルグローブ"
+    class="hero-glove"
+  >
 </div>
       </div>
     </section>
