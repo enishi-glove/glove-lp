@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ご注文内容の確認｜ENISHI</title>
-  <meta name="description" content="ENISHI オーダーグローブのご注文内容確認ページ">
+  <title>ご注文内容の確認｜CROWN</title>
+  <meta name="description" content="CROWN オーダーグローブのご注文内容確認ページ">
   <style>
     :root{
       --bg:#faf8f4;
@@ -117,6 +117,40 @@
       background:#fff;font-size:14px
     }
     .important strong{display:block;margin-bottom:5px}
+
+    /* CROWN公式LINE */
+    .line-card{text-align:center}
+    .line-step{
+      margin:0 0 8px;
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      font-size:11px;letter-spacing:.18em;color:#9b795b
+    }
+    .line-card h2{font-size:26px;margin:0 0 10px}
+    .line-text{max-width:620px;margin:0 auto 25px;color:var(--muted);font-size:14px}
+    .line-box{
+      max-width:720px;margin:0 auto;padding:25px;
+      display:grid;grid-template-columns:180px 1fr;gap:30px;align-items:center;
+      background:#f7f4ee;border:1px solid var(--line);border-radius:16px;text-align:left
+    }
+    .line-qr{text-align:center}
+    .line-qr img{
+      display:block;width:150px;height:150px;margin:0 auto 8px;
+      border-radius:10px;background:#fff
+    }
+    .line-qr span{font-size:11px;color:var(--muted)}
+    .line-action strong{display:block;font-size:20px;margin-bottom:8px}
+    .line-action p{margin:0 0 18px;color:var(--muted);font-size:14px}
+    .line-button{
+      display:inline-block;padding:14px 26px;border-radius:999px;
+      background:#06C755;color:#fff;text-decoration:none;
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700
+    }
+    .line-button:hover{opacity:.88}
+    .line-note{
+      max-width:720px;margin:14px auto 0;color:var(--muted);
+      font-size:12px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+    }
+
     @media(max-width:760px){
       .wrap{padding:20px 15px 48px}
       .brand{font-size:24px}
@@ -124,13 +158,16 @@
       .grid{grid-template-columns:1fr}
       .card{padding:18px}
       .actions{grid-template-columns:1fr}
+      .line-box{grid-template-columns:1fr;text-align:center}
+      .line-action{text-align:center}
+      .line-button{display:block;width:100%}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <a class="brand" href="./index.html">ENISHI</a>
+      <a class="brand" href="./index.html">CROWN</a>
       <a class="back" href="./order.html">← 入力画面に戻る</a>
     </header>
 
@@ -145,7 +182,7 @@
       <div class="grid">
         <div class="preview">
           <div>
-            <div class="glove-mark">ENISHI<br>GLOVE</div>
+            <div class="glove-mark">CROWN<br>GLOVE</div>
             <small>シミュレーションしたグローブのイメージ</small>
           </div>
         </div>
@@ -172,6 +209,39 @@
       </div>
     </section>
 
+    <section class="card line-card">
+      <p class="line-step">ORDER SUPPORT</p>
+      <h2>ご注文前にLINEをご登録ください</h2>
+      <p class="line-text">
+        CROWNでは、ご注文後の仕様確認・刺繍内容の確認・完成までのご連絡を公式LINEで行います。
+      </p>
+
+      <div class="line-box">
+        <div class="line-qr">
+          <img
+            src="https://qr-official.line.me/gs/M_414bllir_GW.png?oat_content=qr"
+            alt="CROWN公式LINE QRコード">
+          <span>スマートフォンで読み取る</span>
+        </div>
+
+        <div class="line-action">
+          <strong>CROWN公式LINE</strong>
+          <p>友だち追加後、このページに戻って振込み・受付手続きへお進みください。</p>
+          <a
+            href="https://lin.ee/WQajS4j"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="line-button">
+            LINEで友だち追加する →
+          </a>
+        </div>
+      </div>
+
+      <p class="line-note">
+        ※ LINEの友だち追加後も、この画面で「振込み内容を確認して受付を完了する」操作が必要です。
+      </p>
+    </section>
+
     <section class="card">
       <h2>お振込み先</h2>
       <p>下記の三井住友銀行口座へ、表示されている商品代金をお振込みください。</p>
@@ -187,7 +257,7 @@
 
       <div class="important">
         <strong>ご入金確認後にご注文確定となります。</strong>
-        お振込み後、ENISHIにてご入金を確認した時点でご注文確定となり、製作を開始いたします。ご入金が確認できない場合、ご注文は確定されません。
+        お振込み後、CROWNにてご入金を確認した時点でご注文確定となり、製作を開始いたします。ご入金が確認できない場合、ご注文は確定されません。
       </div>
 
       <p class="footnote" style="max-width:none;text-align:left;margin-top:12px">
@@ -215,7 +285,7 @@
         <button type="button" class="secondary" id="edit-button">修正する</button>
         <button type="submit" class="primary">振込み内容を確認して受付を完了する</button>
       </div>
-      <p class="footnote">この操作では注文はまだ確定しません。ENISHIでご入金を確認後、正式にご注文確定となります。</p>
+      <p class="footnote">この操作では注文はまだ確定しません。CROWNでご入金を確認後、正式にご注文確定となります。</p>
     </form>
   </div>
 
