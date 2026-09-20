@@ -56,78 +56,40 @@
   line-height:1;
   color:#8a5a20;
 }
-    /* 結婚式用グローブ */
-.wedding-visual{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:365px;
-  padding:35px;
-  overflow:hidden;
-
-  background:linear-gradient(
-    135deg,
-    #f7f0e6 0%,
-    #eadcc6 100%
-  );
-}
-
-.wedding-glove-img{
-  display:block;
-  width:90%;
-  max-width:520px;
-  height:auto;
-  object-fit:contain;
-
-  filter:drop-shadow(0 22px 25px rgba(70,45,25,.15));
-}
-/* ===== 卒団・卒業記念グローブ ===== */
-
-.graduation-visual{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  min-height:365px;
-  padding:35px;
-
-  background:linear-gradient(
-    135deg,
-    #f5eee3 0%,
-    #e5d4b9 100%
-  );
-
-  overflow:hidden;
-}
-
-.graduation-glove-img{
-  display:block;
-  width:88%;
-  max-width:520px;
-  height:auto;
-  object-fit:contain;
-
-  filter:drop-shadow(
-    0 20px 18px rgba(43,32,23,.16)
-  );
-}
-.popular-badge{
-  position:absolute;
-  top:24px;
-  left:24px;
-  z-index:2;
-
-  padding:12px 20px;
-  border-radius:999px;
-
-  background:#30271f;
-  color:#fff;
-
-  font-size:14px;
-  letter-spacing:.08em;
-}
+    /* 商品カード画像：サイズを統一して枠の歪みを防ぐ */
+    .product-visual{
+      position:relative;
+      height:360px;
+      padding:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:linear-gradient(135deg,#f7f0e6 0%,#eadcc6 100%);
+    }
+    .product-visual img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      filter:drop-shadow(0 16px 16px rgba(70,45,25,.12));
+    }
+    .wedding-glove-img,.graduation-glove-img,.personal-glove-img{
+      max-width:100%;
+      max-height:100%;
+    }
+    .popular-badge{
+      position:absolute;
+      top:18px;
+      left:18px;
+      z-index:3;
+      padding:9px 15px;
+      border-radius:999px;
+      background:#30271f;
+      color:#fff;
+      font-size:11px;
+      letter-spacing:.08em;
+    }
     nav{display:flex;gap:22px;align-items:center;font-size:13px}
     .header-btn{background:#3b3027;color:#fff;padding:10px 18px;border-radius:30px}
     .purchase-btn{
@@ -197,28 +159,32 @@
 
   object-fit:contain;
 
-  filter:drop-shadow(0 7px 6px rgba(73,48,27,.08));
+  filter:drop-shadow(
+    0 24px 18px rgba(73,48,27,.18)
+  );
 }
-
-.glove-box::after{
+    .glove-box::after{
   content:"";
   position:absolute;
-  width:66%;
-  height:24px;
-  left:25%;
-  bottom:23px;
-  background:rgba(67,43,25,.13);
-  filter:blur(18px);
+
+  left:15%;
+  right:8%;
+  bottom:25px;
+
+  height:45px;
+
+  background:rgba(74,48,26,.12);
+  filter:blur(24px);
+
   border-radius:50%;
+
   z-index:1;
-  pointer-events:none;
 }
 
 .glove-box img{
-  width:115%;
-  max-width:720px;
-  height:auto;
-  object-fit:contain;
+  width:100%;
+  height:100%;
+  object-fit:cover;
   display:block;
 }
 
@@ -227,16 +193,16 @@
     .section-title{text-align:center;font-size:36px;font-weight:400;margin-bottom:12px}
     .section-lead{text-align:center;color:#766b61;margin-bottom:50px}
     .products{background:#f5f0e8}
-    .product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+    .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;align-items:stretch}
     .product-card{
       position:relative;background:#fff;border-radius:18px;overflow:hidden;
-      box-shadow:0 10px 35px rgba(0,0,0,.06)
+      box-shadow:0 10px 35px rgba(0,0,0,.06);display:flex;flex-direction:column;min-width:0
     }
     .product-image{
       height:245px;display:flex;justify-content:center;align-items:center;font-size:105px;
       background:linear-gradient(135deg,#eee5d7,#d8c4a7)
     }
-    .product-content{padding:30px}
+    .product-content{padding:30px;display:flex;flex-direction:column;flex:1}
     .product-label{font-size:11px;letter-spacing:3px;color:#9a7652;margin-bottom:6px}
     .product-content h3{font-size:24px;font-weight:400;margin-bottom:8px}
     .product-copy{font-size:15px;color:#5f554d;margin-bottom:18px}
@@ -276,6 +242,10 @@
     .cta .section-title{font-size:42px}.cta p{margin-bottom:28px}
     footer{background:#251e19;color:#cfc6bd;text-align:center;padding:30px;font-size:12px}
 
+    @media(max-width:1100px) and (min-width:851px){
+      .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
     @media(max-width:850px){
       nav a:not(.header-btn){display:none}
      .logo-lion{
@@ -292,6 +262,7 @@
       .hero-text{text-align:center}.glove-box{font-size:125px}
       section{padding:70px 6%}.section-title{font-size:28px}
       .product-grid,.interior-grid,.flow-grid{grid-template-columns:1fr}
+      .product-visual{height:330px;padding:24px}
       .product-image{height:210px}
     }
   </style>
@@ -370,15 +341,15 @@
           </article>
 
           <article class="product-card">
-           <div class="graduation-visual">
-  <span class="popular-badge">POPULAR No.1 | NAVY</span>
-
-  <img
-    src="./crown-graduation-glove.png"
-    alt="CROWN 卒団・卒業記念グローブ"
-    class="graduation-glove-img"
-  >
-</div>
+            <div class="product-visual graduation-visual">
+              <span class="popular-badge">POPULAR No.1 | NAVY</span>
+              <img src="./crown-graduation-glove.png"
+                   alt="CROWN 卒団・卒業記念グローブ"
+                   class="graduation-glove-img">
+            </div>
+            <div class="product-content">
+              <div class="product-label">GRADUATION GLOVE</div>
+              <h3>卒団・卒業記念グローブ</h3>
               <p class="product-copy">仲間と過ごした時間を、形に残す。名前・背番号・チーム名を入れた、節目の記念品。</p>
               <div class="price">44,000円 <span class="tax">（税抜40,000円）</span></div>
               <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
@@ -388,29 +359,22 @@
             </div>
           </article>
 
-          <article class="product-card">
-            <div class="popular">POPULAR No.1｜YELLOW</div>
-            <div class="product-image">💛</div>
-            <div class="product-content">
-              <div class="product-label">HOMERUN CATCH GLOVE</div>
-              <h3>ホームランキャッチグローブ</h3>
-              <p class="product-copy">応援にも、ホームランキャッチにも。軽く、持ち歩きやすく、観戦の一日をもっと特別に。</p>
-              <div class="price">14,920円 <span class="tax">（税抜13,564円相当）</span></div>
-              <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
-              <div class="color-dots"><i class="dot white"></i><i class="dot blue"></i><i class="dot red"></i><i class="dot yellow"></i><i class="dot black"></i><i class="dot purple"></i><i class="dot lime"></i></div>
-              <div class="premium">PURPLE / LIME GREEN：17,420円（税込／税抜15,836円相当）</div>
-              <br><a href="./custom/" class="purchase-btn" onclick="track('buy_homerun')">このグローブをつくる →</a>
-            </div>
-          </article>
+
 
           <article class="product-card" id="myglove">
-            <div class="product-image">⚾</div>
+            <div class="product-visual personal-visual">
+              <span class="popular-badge">FOR YOURSELF | YELLOW</span>
+              <img src="./crown-personal-glove.png"
+                   alt="CROWN 自分のためのグローブ"
+                   class="personal-glove-img">
+            </div>
             <div class="product-content">
               <div class="product-label">MY GLOVE</div>
-              <h3>自分を表現するグローブ</h3>
+              <h3>自分のためのグローブ</h3>
               <p class="product-copy">誰かに贈るためだけじゃない。好きな色、言葉、番号。自分の「好き」をグローブで表現する。</p>
               <div class="price">55,000円 <span class="tax">（税抜50,000円）</span></div>
               <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
+              <div class="color-dots"><i class="dot white"></i><i class="dot blue"></i><i class="dot red"></i><i class="dot yellow"></i><i class="dot black"></i><i class="dot purple"></i><i class="dot lime"></i></div>
               <div class="premium">PURPLE / LIME GREEN：57,000円（税込）</div>
               <br><a href="./custom/" class="purchase-btn" onclick="track('buy_myglove')">自分だけのグローブをつくる →</a>
             </div>
