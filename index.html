@@ -124,10 +124,18 @@
     @keyframes openingOut{to{opacity:0;visibility:hidden;pointer-events:none}}
 
     .hero{
-      min-height:100vh;padding:150px 8% 80px;display:flex;align-items:center;
-      background:radial-gradient(circle at 80% 30%,#e5d6bd 0%,transparent 30%),#faf8f4
+      min-height:100vh;
+      padding:145px 5% 85px;
+      display:flex;
+      align-items:center;
+      background:
+        radial-gradient(ellipse 78% 88% at 68% 48%,
+          rgba(224,204,174,.82) 0%,
+          rgba(238,225,205,.68) 46%,
+          rgba(250,248,244,0) 78%),
+        #faf8f4;
     }
-    .hero-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .hero-inner{width:100%;max-width:1420px;margin:auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:38px;align-items:center}
     .eyebrow{font-size:13px;letter-spacing:4px;color:#9a7652;margin-bottom:18px}
     .hero h1 span{
   display:block;
@@ -145,7 +153,7 @@
   border-radius:0;
   overflow:visible;
 
-  min-height:520px;
+  min-height:610px;
 }
 
 .hero-glove{
@@ -153,39 +161,19 @@
   z-index:2;
 
   display:block;
-  width:115%;
-  max-width:720px;
+  width:122%;
+  max-width:830px;
   height:auto;
 
   object-fit:contain;
 
-  filter:drop-shadow(
-    0 24px 18px rgba(73,48,27,.18)
-  );
-}
-    .glove-box::after{
-  content:"";
-  position:absolute;
-
-  left:15%;
-  right:8%;
-  bottom:25px;
-
-  height:45px;
-
-  background:rgba(74,48,26,.12);
-  filter:blur(24px);
-
-  border-radius:50%;
-
-  z-index:1;
+  filter:none;
 }
 
 .glove-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
   display:block;
+  height:auto;
+  object-fit:contain;
 }
 
     section{padding:95px 8%}
@@ -242,6 +230,15 @@
     .cta .section-title{font-size:42px}.cta p{margin-bottom:28px}
     footer{background:#251e19;color:#cfc6bd;text-align:center;padding:30px;font-size:12px}
 
+    .product-copy{min-height:72px}
+    .product-content .purchase-btn{
+      margin-top:auto;
+      width:100%;
+      text-align:center;
+      box-sizing:border-box;
+    }
+    .product-content br{display:none}
+
     @media(max-width:1100px) and (min-width:851px){
       .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
@@ -258,8 +255,8 @@
   letter-spacing:3px;
 }
       .hero{padding:120px 7% 60px}
-      .hero-inner{grid-template-columns:1fr;gap:35px}
-      .hero-text{text-align:center}.glove-box{font-size:125px}
+      .hero-inner{grid-template-columns:1fr;gap:20px}
+      .hero-text{text-align:center}.glove-box{min-height:390px}.hero-glove{width:108%;max-width:620px}
       section{padding:70px 6%}.section-title{font-size:28px}
       .product-grid,.interior-grid,.flow-grid{grid-template-columns:1fr}
       .product-visual{height:330px;padding:24px}
@@ -320,7 +317,7 @@
 
           <article class="product-card">
             <div class="product-visual wedding-visual">
-  <span class="popular-badge">POPULAR No.1 | WHITE</span>
+  <span class="popular-badge">POPULAR No.1 | PINK</span>
 
   <img
     src="./crown-wedding-glove.png"
@@ -333,9 +330,9 @@
               <h3>結婚式用グローブ</h3>
               <p class="product-copy">二人の名前、記念日、メッセージを刻む。結婚という人生のスタートを、二人だけのグローブに。</p>
               <div class="price">55,000円 <span class="tax">（税抜50,000円）</span></div>
-              <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
+              <div class="colors">PINK / BLUE / RED / YELLOW / BLACK</div>
               <div class="color-dots"><i class="dot white"></i><i class="dot blue"></i><i class="dot red"></i><i class="dot yellow"></i><i class="dot black"></i><i class="dot purple"></i><i class="dot lime"></i></div>
-              <div class="premium">PURPLE / LIME GREEN：57,000円（税込）</div>
+              <div class="premium">ALL COLORS：55,000円（税込）</div>
               <br><a href="./custom/" class="purchase-btn" onclick="track('buy_wedding')">このグローブをつくる →</a>
             </div>
           </article>
@@ -351,10 +348,10 @@
               <div class="product-label">GRADUATION GLOVE</div>
               <h3>卒団・卒業記念グローブ</h3>
               <p class="product-copy">仲間と過ごした時間を、形に残す。名前・背番号・チーム名を入れた、節目の記念品。</p>
-              <div class="price">44,000円 <span class="tax">（税抜40,000円）</span></div>
+              <div class="price">55,000円 <span class="tax">（税抜50,000円）</span></div>
               <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
               <div class="color-dots"><i class="dot white"></i><i class="dot blue"></i><i class="dot red"></i><i class="dot yellow"></i><i class="dot black"></i><i class="dot purple"></i><i class="dot lime"></i></div>
-              <div class="premium">PURPLE / LIME GREEN：46,000円（税込）</div>
+              <div class="premium">ALL COLORS：55,000円（税込）</div>
               <br><a href="./custom/" class="purchase-btn" onclick="track('buy_graduation')">このグローブをつくる →</a>
             </div>
           </article>
@@ -375,7 +372,7 @@
               <div class="price">55,000円 <span class="tax">（税抜50,000円）</span></div>
               <div class="colors">WHITE / BLUE / RED / YELLOW / BLACK</div>
               <div class="color-dots"><i class="dot white"></i><i class="dot blue"></i><i class="dot red"></i><i class="dot yellow"></i><i class="dot black"></i><i class="dot purple"></i><i class="dot lime"></i></div>
-              <div class="premium">PURPLE / LIME GREEN：57,000円（税込）</div>
+              <div class="premium">ALL COLORS：55,000円（税込）</div>
               <br><a href="./custom/" class="purchase-btn" onclick="track('buy_myglove')">自分だけのグローブをつくる →</a>
             </div>
           </article>
@@ -391,21 +388,6 @@
           <h3>野球好きこそ、<br>自分を表現するグローブを。</h3>
           <p>好きなチームカラー。背番号。大切にしている言葉。<br>グローブは、もっと自分らしくていい。</p>
           <a href="./custom/" class="purchase-btn" onclick="track('myglove_cta')">MY GLOVEをつくる →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="interior" id="interior">
-      <div class="container">
-        <div class="interior-head">
-          <div class="question">お部屋のインテリアに困っていませんか？</div>
-          <h2>あなたのお部屋には、<br>あなたが大好きなものを。</h2>
-        </div>
-        <p class="section-lead">グローブを「しまう」のではなく、「飾る」という選択肢。</p>
-        <div class="interior-grid">
-          <div class="interior-card"><div class="interior-icon">▣</div><h3>透明ディスプレイケース</h3><p>大切なグローブをほこりから守りながら、360°美しく見せる。</p></div>
-          <div class="interior-card"><div class="interior-icon">◇</div><h3>専用グローブ台座</h3><p>グローブが一番美しく見える角度で飾るための専用スタンド。</p></div>
-          <div class="interior-card"><div class="interior-icon">▤</div><h3>ディスプレイテーブル</h3><p>グローブや写真、記念品をひとつの景色として飾るための家具。</p></div>
         </div>
       </div>
     </section>
